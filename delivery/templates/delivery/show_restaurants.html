@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Restaurants</title>
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white rounded-lg shadow-md border border-gray-200">
+            <thead>
+                <tr class="bg-indigo-600 text-white text-left">
+                    <th class="py-3 px-4 font-semibold">Restaurant name</th>
+                    <th class="py-3 px-4 font-semibold">Picture</th>
+                    <th class="py-3 px-4 font-semibold">Cuisine</th>
+                    <th class="py-3 px-4 font-semibold">Rating</th>
+                    <th class="py-3 px-4 font-semibold">Operations</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in restaurantList %}
+                <tr class="border-b border-gray-200 hover:bg-gray-50">
+                    <td class="py-2 px-4">{{ r.name }}</td>
+                    <td class="py-2 px-4">
+                        <img src="{{ r.picture }}" alt="{{ r.name }}" class="w-20 h-20 object-cover rounded" />
+                    </td>
+                    <td class="py-2 px-4">{{ r.cuisine }}</td>
+                    <td class="py-2 px-4">{{ r.rating }}</td>
+                    <td class="py-2 px-4 space-y-1">
+                        <a href="{% url 'open_update_restaurant' r.id %}"
+                           class="text-indigo-600 hover:text-indigo-400 block">Update Restaurant Info</a>
+                        <a href="{% url 'delete_restaurant' r.id %}"
+                           class="text-red-600 hover:text-red-400 block">Delete Restaurant</a>
+                        <a href="{% url 'open_update_menu' r.id %}"
+                           class="text-green-600 hover:text-green-400 block">Update Menu</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

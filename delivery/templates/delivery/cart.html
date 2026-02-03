@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Menu</title>
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
+        <div class="mb-4 text-lg font-semibold">Welcome, {{ username }}</div>
+
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-indigo-600 text-white">
+                    <tr>
+                        <th class="px-4 py-2 text-left">Item Image</th>
+                        <th class="px-4 py-2 text-left">Name</th>
+                        <th class="px-4 py-2 text-left">Description</th>
+                        <th class="px-4 py-2 text-left">Price</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 bg-white">
+                    {% for item in itemList %}
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-2">
+                            <img src="{{ item.picture }}" alt="{{ item.name }}" class="w-20 h-20 object-cover rounded" />
+                        </td>
+                        <td class="px-4 py-2">{{ item.name }}</td>
+                        <td class="px-4 py-2">{{ item.description }}</td>
+                        <td class="px-4 py-2">₹{{ item.price }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="mt-6 text-xl font-semibold">Total price: ₹{{ total_price }}</h2>
+
+        <form action="{% url 'checkout' username %}" class="mt-4">
+            <input type="submit" value="CHECK OUT"
+                   class="cursor-pointer bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition duration-200" />
+        </form>
+    </div>
+</body>
+</html>

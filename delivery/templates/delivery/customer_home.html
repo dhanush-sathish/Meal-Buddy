@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Customer Page</title>
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="max-w-5xl mx-auto bg-white rounded-lg shadow-md p-6">
+        <h3 class="text-2xl font-semibold mb-6">Welcome {{ username }}!</h3>
+
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-indigo-600 text-white">
+                    <tr>
+                        <th class="px-4 py-2 text-left">Restaurant name</th>
+                        <th class="px-4 py-2 text-left">Picture</th>
+                        <th class="px-4 py-2 text-left">Cuisine</th>
+                        <th class="px-4 py-2 text-left">Rating</th>
+                        <th class="px-4 py-2 text-left">Operations</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 bg-white">
+                    {% for r in restaurantList %}
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-2">{{ r.name }}</td>
+                        <td class="px-4 py-2">
+                            <img src="{{ r.picture }}" alt="{{ r.name }}" class="w-24 h-24 object-cover rounded" />
+                        </td>
+                        <td class="px-4 py-2">{{ r.cuisine }}</td>
+                        <td class="px-4 py-2">{{ r.rating }}</td>
+                        <td class="px-4 py-2">
+                            <a href="{% url 'view_menu' r.id username %}"
+                               class="text-indigo-600 hover:text-indigo-400 font-semibold">
+                                View Menu
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

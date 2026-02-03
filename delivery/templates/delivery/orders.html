@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Order Summary</title>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-8">
+        <h1 class="text-3xl font-bold mb-6">Thank you for your order, {{ username }}!</h1>
+
+        <h2 class="text-2xl font-semibold mb-2">Delivery Address</h2>
+        <p class="mb-6 text-gray-700">{{ customer.address }}</p>
+
+        <p class="mb-8">Your order will be delivered to this location shortly. Thank you for choosing Meal Mate!</p>
+
+        {% if cart_items %}
+            <a href="{% url 'customer_menu' cart_items.0.restaurant.id username %}"
+               class="inline-block bg-indigo-600 text-white px-6 py-3 rounded-md hover:bg-indigo-700 transition duration-200">
+               Back to Restaurants
+            </a>
+        {% else %}
+            <a href="/"
+               class="inline-block bg-gray-600 text-white px-6 py-3 rounded-md hover:bg-gray-700 transition duration-200">
+               Back to Home
+            </a>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Menu</title>
+</head>
+<body class="bg-gray-100 p-6">
+
+    {% if messages %}
+      <div class="fixed top-4 right-4 space-y-2 z-50">
+        {% for message in messages %}
+          <div class="bg-green-500 text-white py-2 px-4 rounded shadow">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="max-w-5xl mx-auto bg-white rounded-lg shadow-md p-6">
+        <h3 class="text-2xl font-semibold mb-4">Welcome {{ username }}!</h3>
+
+        <div class="mb-6 flex space-x-4">
+            <a href="{% url 'show_cart' username %}" 
+               class="inline-block bg-indigo-600 text-white px-5 py-2 rounded-md hover:bg-indigo-700 transition duration-200">
+                Go to cart
+            </a>
+
+            <a href="{% url 'open_show_restaurant' %}" 
+               class="inline-block bg-gray-600 text-white px-5 py-2 rounded-md hover:bg-gray-700 transition duration-200">
+                Back to Restaurants
+            </a>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-indigo-600 text-white">
+                    <tr>
+                        <th class="px-4 py-2 text-left">Item name</th>
+                        <th class="px-4 py-2 text-left">Picture</th>
+                        <th class="px-4 py-2 text-left">Description</th>
+                        <th class="px-4 py-2 text-left">Price</th>
+                        <th class="px-4 py-2 text-left">Is veg?</th>
+                        <th class="px-4 py-2 text-left">Operation</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 bg-white">
+                    {% for item in itemList %}
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-2">{{ item.name }}</td>
+                        <td class="px-4 py-2">
+                            <img src="{{ item.picture }}" alt="{{ item.name }}" class="w-20 h-20 object-cover rounded" />
+                        </td>
+                        <td class="px-4 py-2">{{ item.description }}</td>
+                        <td class="px-4 py-2">₹{{ item.price }}</td>
+                        <td class="px-4 py-2">{{ item.vegeterian|yesno:"Yes,No" }}</td>
+                        <td class="px-4 py-2">
+                            <a href="{% url 'add_to_cart' item.id username %}" 
+                               class="text-green-600 hover:text-green-400 font-semibold">
+                                Add to cart
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
